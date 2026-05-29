@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSUKASHA Admin Login</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#020617,#111827);
+overflow:hidden;
+}
+
+.login-box{
+width:400px;
+background:#111827;
+padding:40px;
+border-radius:20px;
+box-shadow:0 0 30px rgba(0,0,0,0.4);
+text-align:center;
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:#00d084;
+margin-bottom:10px;
+}
+
+.sub{
+color:#94a3b8;
+margin-bottom:35px;
+font-size:14px;
+}
+
+.input-box{
+margin-bottom:20px;
+text-align:left;
+}
+
+.input-box label{
+display:block;
+margin-bottom:8px;
+font-size:14px;
+color:#cbd5e1;
+}
+
+.input-box input{
+width:100%;
+padding:14px;
+border:none;
+outline:none;
+border-radius:10px;
+background:#1f2937;
+color:white;
+font-size:15px;
+}
+
+.login-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#00d084;
+color:black;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.login-btn:hover{
+background:#00b874;
+}
+
+.error{
+margin-top:15px;
+color:#ef4444;
+display:none;
+font-size:14px;
+}
+
+.info{
+margin-top:25px;
+color:#64748b;
+font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+<div class="logo">MSUKASHA</div>
+
+<div class="sub">
+Admin Control Panel Login
+</div>
+
+<div class="input-box">
+<label>Admin Username</label>
+<input type="text" id="username" placeholder="Enter username">
+</div>
+
+<div class="input-box">
+<label>Admin Password</label>
+<input type="password" id="password" placeholder="Enter password">
+</div>
+
+<button class="login-btn" onclick="loginAdmin()">
+<i class="fas fa-lock"></i>
+Login Admin Panel
+</button>
+
+<div class="error" id="error">
+Invalid Username or Password
+</div>
+
+<div class="info">
+Username: adm <br>
+Password hint: msuk26
+</div>
+
+</div>
+
+<script>
+
+function loginAdmin(){
+
+let username=document.getElementById('username').value;
+let password=document.getElementById('password').value;
+
+if(username==="admin" && password==="msukasha2026"){
+
+window.location.href="admin Control Center.html";
+
+}else{
+
+document.getElementById('error').style.display="block";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

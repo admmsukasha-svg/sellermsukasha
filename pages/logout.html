@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signing Out - MSUKASHA B2B</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', system-ui, sans-serif; }
+        .logout-box { background: #fff; border-radius: 20px; padding: 50px 40px; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        .logo { font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 30px; }
+        .logo span { background: #e0f2fe; color: #0284c7; font-size: 12px; padding: 3px 8px; border-radius: 4px; margin-left: 6px; }
+        .spinner { width: 60px; height: 60px; border: 5px solid #f1f5f9; border-top: 5px solid #0284c7; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        h3 { font-size: 20px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+        p { color: #64748b; font-size: 14px; }
+        .done-icon { display: none; width: 60px; height: 60px; border-radius: 50%; background: #dcfce7; margin: 0 auto 20px; align-items: center; justify-content: center; font-size: 26px; color: #16a34a; }
+        .redirect-link { display: none; margin-top: 25px; background: #0284c7; color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="logout-box">
+        <div class="logo">MSUKASHA <span>B2B</span></div>
+        <div class="spinner" id="spinner"></div>
+        <div class="done-icon" id="doneIcon"><i class="fas fa-check"></i></div>
+        <h3 id="logoutTitle">Signing You Out...</h3>
+        <p id="logoutMsg">Aapka session secure tarike se band ho raha hai.</p>
+        <a href="/login" class="redirect-link" id="loginLink"><i class="fas fa-sign-in-alt" style="margin-right:6px;"></i> Back to Login</a>
+    </div>
+    <script>
+        // Clear session & redirect
+        setTimeout(() => {
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('doneIcon').style.display = 'flex';
+            document.getElementById('logoutTitle').textContent = 'Signed Out Successfully';
+            document.getElementById('logoutMsg').textContent = 'Aap successfully MSUKASHA B2B Portal se sign out ho gaye hain.';
+            document.getElementById('loginLink').style.display = 'inline-block';
+        }, 1500);
+
+        setTimeout(() => {
+            window.location.href = '/login';
+        }, 3500);
+
+        // Actual logout API call - clear session on server
+        fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
+            .catch(() => {});
+    </script>
+</body>
+</html>

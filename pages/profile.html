@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile - MSUKASHA B2B</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dashboard-layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: #0f172a; color: #94a3b8; padding: 30px 20px; flex-shrink: 0; }
+        .sidebar .brand { color: #fff; font-size: 20px; font-weight: 800; margin-bottom: 40px; padding-left: 10px; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li a { display: flex; align-items: center; gap: 12px; padding: 14px 12px; color: #94a3b8; text-decoration: none; border-radius: 6px; font-weight: 600; margin-bottom: 5px; }
+        .sidebar-menu li a:hover, .sidebar-menu li.active a { background: #1e293b; color: #fff; }
+        .sidebar-menu li a i { width: 20px; font-size: 16px; }
+        .main-content { flex: 1; background: #f1f5f9; padding: 40px; }
+        .profile-header { background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%); border-radius: 12px; padding: 35px; color: #fff; display: flex; align-items: center; gap: 25px; margin-bottom: 30px; }
+        .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; color: #fff; flex-shrink: 0; }
+        .profile-name h2 { font-size: 24px; margin-bottom: 5px; }
+        .profile-name p { color: #94a3b8; font-size: 14px; }
+        .verified-badge { background: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 8px; display: inline-block; }
+        .profile-card { background: #fff; border-radius: 12px; border: 1px solid #e2e8f0; padding: 30px; margin-bottom: 25px; }
+        .profile-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9; color: #0f172a; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .info-item label { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-item p { font-size: 15px; font-weight: 600; color: #1e293b; margin-top: 4px; }
+        .edit-form input, .edit-form select, .edit-form textarea { width: 100%; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 12px; font-size: 14px; background: #f8fafc; margin-top: 6px; outline: none; font-family: inherit; }
+        .edit-form input:focus, .edit-form select:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2,132,199,0.15); background: #fff; }
+        .edit-form label { font-size: 13px; font-weight: 600; color: #475569; }
+        .save-btn { background: #0284c7; color: #fff; padding: 12px 30px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; }
+        .save-btn:hover { background: #0369a1; }
+        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .mini-stat { background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #e2e8f0; text-align: center; }
+        .mini-stat .num { font-size: 26px; font-weight: 800; color: #0284c7; }
+        .mini-stat .lbl { font-size: 12px; color: #64748b; margin-top: 4px; font-weight: 600; }
+        .bank-card { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 12px; padding: 25px; color: #fff; margin-bottom: 15px; }
+        .bank-card h4 { font-size: 13px; color: #94a3b8; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .bank-num { font-size: 20px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+        .bank-meta { display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1; }
+        .alert-success { background: #dcfce7; color: #15803d; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 600; font-size: 14px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="brand">MSUKASHA <span style="font-size: 12px; color: #0284c7;">B2B</span></div>
+            <ul class="sidebar-menu">
+                <li><a href="/pages/seller-dashboard.html"><i class="fas fa-chart-pie"></i> Overview</a></li>
+                <li><a href="/pages/add-product.html"><i class="fas fa-plus-circle"></i> Add Wholesale Item</a></li>
+                <li><a href="/pages/bulk-orders.html"><i class="fas fa-boxes-packing"></i> Bulk Orders</a></li>
+                <li><a href="/pages/payments.html"><i class="fas fa-wallet"></i> Payments & Wallet</a></li>
+                <li class="active"><a href="/pages/profile.html"><i class="fas fa-building"></i> Company Profile</a></li>
+                <li style="margin-top: 80px;"><a href="/pages/logout.html" style="color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <!-- Profile Header Banner -->
+            <div class="profile-header">
+                <div class="profile-avatar" id="avatarInitials">AN</div>
+                <div class="profile-name">
+                    <h2 id="companyDisplayName">Al-Noor Traders Ltd</h2>
+                    <p><i class="fas fa-map-marker-alt" style="margin-right:5px;"></i> Karachi, Sindh, Pakistan</p>
+                    <p style="margin-top:4px;"><i class="fas fa-envelope" style="margin-right:5px;"></i> <span id="emailDisplay">info@alnoor.com</span></p>
+                    <span class="verified-badge"><i class="fas fa-check-circle"></i> MSUKASHA Verified Vendor</span>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-row">
+                <div class="mini-stat">
+                    <div class="num" id="totalProducts">12</div>
+                    <div class="lbl">Active Products</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="num" id="totalOrders">24</div>
+                    <div class="lbl">Total Orders</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="num">Rs. 4.5L</div>
+                    <div class="lbl">Revenue Earned</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="num">98%</div>
+                    <div class="lbl">Fulfillment Rate</div>
+                </div>
+            </div>
+
+            <!-- Company Info Card -->
+            <div class="profile-card">
+                <h3><i class="fas fa-building" style="color:#0284c7; margin-right:8px;"></i> Company Information</h3>
+                <div class="alert-success" id="saveAlert"><i class="fas fa-check-circle"></i> Profile successfully updated!</div>
+                <form class="edit-form" onsubmit="saveProfile(event)">
+                    <div class="info-grid">
+                        <div>
+                            <label>Representative / Contact Person</label>
+                            <input type="text" id="repName" value="Ahmed Noor" required>
+                        </div>
+                        <div>
+                            <label>Company / Business Name</label>
+                            <input type="text" id="companyName" value="Al-Noor Traders Ltd" required>
+                        </div>
+                        <div>
+                            <label>Business Email</label>
+                            <input type="email" id="bizEmail" value="info@alnoor.com" required>
+                        </div>
+                        <div>
+                            <label>Contact Phone / WhatsApp</label>
+                            <input type="tel" id="phone" value="+92-300-1234567" required>
+                        </div>
+                        <div>
+                            <label>NTN / Business Registration No.</label>
+                            <input type="text" id="ntn" value="4123982-1" readonly style="background:#f1f5f9; color:#94a3b8; cursor:not-allowed;">
+                            <small style="color:#94a3b8; font-size:12px;">NTN cannot be changed. Contact admin.</small>
+                        </div>
+                        <div>
+                            <label>Business Type</label>
+                            <select id="bizType">
+                                <option value="manufacturer" selected>Manufacturer</option>
+                                <option value="wholesaler">Wholesaler / Distributor</option>
+                                <option value="distributor">Regional Distributor</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>City / Location</label>
+                            <input type="text" id="city" value="Karachi, Sindh">
+                        </div>
+                        <div>
+                            <label>Factory / Warehouse Address</label>
+                            <input type="text" id="address" value="Plot 42, SITE Industrial Area">
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <label>Company / Business Description</label>
+                        <textarea id="bizDesc" rows="3" style="margin-top:6px;">Manufacturer and exporter of industrial safety gear, gloves, and protective equipment since 2010.</textarea>
+                    </div>
+                    <div style="text-align:right; margin-top:20px;">
+                        <button type="submit" class="save-btn"><i class="fas fa-save"></i> Save Changes</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bank / Payment Details -->
+            <div class="profile-card">
+                <h3><i class="fas fa-university" style="color:#0284c7; margin-right:8px;"></i> Payment & Bank Details</h3>
+                <p style="color:#64748b; font-size:13px; margin-bottom:20px;">Yahan aap apna bank account ya JazzCash/EasyPaisa number add karein jahan aapka payment receive hoga.</p>
+                <div class="bank-card">
+                    <h4><i class="fas fa-credit-card"></i> Primary Bank Account</h4>
+                    <div class="bank-num">**** **** **** 7842</div>
+                    <div class="bank-meta">
+                        <span>HBL - Habib Bank Ltd</span>
+                        <span>IBAN: PK36HABB0000012345678901</span>
+                    </div>
+                </div>
+                <div class="info-grid" style="margin-top:20px;">
+                    <div>
+                        <label style="font-size:13px; font-weight:600; color:#475569;">JazzCash Mobile Account</label>
+                        <input type="tel" value="0300-1234567" style="width:100%; border:1.5px solid #e2e8f0; border-radius:8px; padding:12px; margin-top:6px; background:#f8fafc; font-size:14px;">
+                    </div>
+                    <div>
+                        <label style="font-size:13px; font-weight:600; color:#475569;">EasyPaisa Mobile Account</label>
+                        <input type="tel" placeholder="EasyPaisa number (optional)" style="width:100%; border:1.5px solid #e2e8f0; border-radius:8px; padding:12px; margin-top:6px; background:#f8fafc; font-size:14px;">
+                    </div>
+                </div>
+                <div style="text-align:right; margin-top:15px;">
+                    <button class="save-btn" onclick="alert('Payment details saved!')"><i class="fas fa-save"></i> Update Payment Info</button>
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div class="profile-card">
+                <h3><i class="fas fa-lock" style="color:#0284c7; margin-right:8px;"></i> Change Password</h3>
+                <div class="info-grid">
+                    <div>
+                        <label style="font-size:13px; font-weight:600; color:#475569;">Current Password</label>
+                        <input type="password" placeholder="Enter current password" style="width:100%; border:1.5px solid #e2e8f0; border-radius:8px; padding:12px; margin-top:6px; background:#f8fafc; font-size:14px;">
+                    </div>
+                    <div>
+                        <label style="font-size:13px; font-weight:600; color:#475569;">New Password</label>
+                        <input type="password" placeholder="Minimum 8 characters" style="width:100%; border:1.5px solid #e2e8f0; border-radius:8px; padding:12px; margin-top:6px; background:#f8fafc; font-size:14px;">
+                    </div>
+                </div>
+                <div style="text-align:right; margin-top:15px;">
+                    <button class="save-btn" onclick="alert('Password changed successfully!')"><i class="fas fa-key"></i> Update Password</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function saveProfile(e) {
+            e.preventDefault();
+            const name = document.getElementById('companyName').value;
+            const email = document.getElementById('bizEmail').value;
+            document.getElementById('companyDisplayName').textContent = name;
+            document.getElementById('emailDisplay').textContent = email;
+            document.getElementById('avatarInitials').textContent = name.substring(0,2).toUpperCase();
+            const alert = document.getElementById('saveAlert');
+            alert.style.display = 'block';
+            setTimeout(() => { alert.style.display = 'none'; }, 3000);
+        }
+    </script>
+
+    <script>
+    // ── Profile Load & Save ──
+    (async function loadProfile() {
+        try {
+            const res = await fetch('/api/vendor/profile', { credentials: 'include' });
+            const data = await res.json();
+            if (!res.ok || !data.success) { window.location.href = '/login'; return; }
+
+            const s = data.data;
+            const fields = {
+                representativeName: s.representativeName,
+                companyName: s.companyName,
+                email: s.email,
+                phone: s.phone,
+                ntnNumber: s.ntnNumber,
+                businessType: s.businessType
+            };
+
+            Object.entries(fields).forEach(([key, val]) => {
+                const el = document.querySelector(`[name="${key}"], #${key}`);
+                if (el) el.value = val || '';
+            });
+
+            // Show company name in headings
+            document.querySelectorAll('.company-name, #companyDisplay').forEach(el => {
+                el.textContent = s.companyName;
+            });
+        } catch (e) { console.error(e); }
+    })();
+
+    // Save profile
+    const profileForm = document.getElementById('profileForm') || document.querySelector('form');
+    if (profileForm) {
+        profileForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = profileForm.querySelector('button[type="submit"]');
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...'; }
+
+            const formData = new FormData(profileForm);
+            const body = {};
+            formData.forEach((v, k) => body[k] = v);
+
+            try {
+                const res = await fetch('/api/vendor/profile', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body),
+                    credentials: 'include'
+                });
+                const data = await res.json();
+                alert(data.success ? '✅ Profile updated!' : '❌ ' + (data.message || 'Update failed'));
+            } catch (err) {
+                alert('❌ Server error');
+            } finally {
+                if (btn) { btn.disabled = false; btn.innerHTML = 'Save Changes'; }
+            }
+        });
+    }
+    </script>
+</body>
+</html>

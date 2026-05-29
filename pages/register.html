@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Registration — MSUKASHA B2B</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink:        #0d0d0d;
+            --surface:    #f5f2ed;
+            --card:       #ffffff;
+            --accent:     #c8451a;
+            --accent-dim: rgba(200,69,26,0.08);
+            --accent-glow:rgba(200,69,26,0.18);
+            --accent-dark:#a33614;
+            --muted:      #8a8580;
+            --border:     #e0dcd6;
+            --input-bg:   #faf9f7;
+            --panel-line: rgba(255,255,255,0.06);
+        }
+
+        html { height: 100%; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--surface);
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--surface); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* ══ LEFT PANEL ══ */
+        .left-panel {
+            width: 380px;
+            flex-shrink: 0;
+            background: var(--ink);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 52px 44px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 2;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 340px; height: 340px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,69,26,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .left-panel::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: -60px;
+            width: 220px; height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,69,26,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* brand */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            animation: fadeUp 0.5s ease both;
+        }
+        .brand-icon {
+            width: 44px; height: 44px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 19px; color: #fff;
+            flex-shrink: 0;
+        }
+        .brand-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 26px;
+            color: #fff;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+        .brand-name span { color: var(--accent); }
+        .brand-tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #555;
+            margin-top: 3px;
+        }
+
+        /* headline */
+        .left-hero {
+            animation: fadeUp 0.6s 0.1s ease both;
+        }
+        .left-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 52px;
+            line-height: 0.95;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        .left-hero h1 em { font-style: normal; color: var(--accent); }
+        .left-hero p {
+            font-size: 13.5px;
+            color: #666;
+            line-height: 1.75;
+        }
+
+        /* step list */
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            animation: fadeUp 0.6s 0.15s ease both;
+        }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+        }
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 17px; top: 36px;
+            width: 2px; height: calc(100% - 4px);
+            background: #1e1e1e;
+        }
+        .step-item.done::after { background: rgba(200,69,26,0.3); }
+
+        .step-num {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid #2a2a2a;
+            background: #111;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+            color: #555;
+            flex-shrink: 0; z-index: 1;
+            transition: 0.3s;
+        }
+        .step-item.active .step-num {
+            border-color: var(--accent);
+            background: rgba(200,69,26,0.12);
+            color: var(--accent);
+        }
+        .step-item.done .step-num {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .step-body { padding: 6px 0 26px; }
+        .step-body strong {
+            display: block;
+            font-size: 13px; font-weight: 600;
+            color: #aaa; margin-bottom: 3px;
+        }
+        .step-item.active .step-body strong { color: #fff; }
+        .step-item.done .step-body strong { color: var(--accent); }
+        .step-body span { font-size: 11.5px; color: #444; line-height: 1.5; }
+
+        /* info badge */
+        .info-badge {
+            margin-top: auto;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #1e1e1e;
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            animation: fadeUp 0.6s 0.2s ease both;
+        }
+        .info-badge i { color: #555; font-size: 15px; margin-top: 2px; flex-shrink: 0; }
+        .info-badge p { font-size: 12px; color: #555; line-height: 1.65; }
+        .info-badge p strong { color: #aaa; }
+
+        /* ══ RIGHT PANEL ══ */
+        .right-panel {
+            flex: 1;
+            padding: 48px 52px 64px;
+            overflow-y: auto;
+            background: var(--surface);
+        }
+
+        .right-topnav {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 36px;
+        }
+        .right-topnav a {
+            font-size: 13px;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex; align-items: center; gap: 7px;
+            transition: color 0.2s;
+        }
+        .right-topnav a:hover { color: var(--accent); }
+
+        /* form heading */
+        .form-heading { margin-bottom: 36px; }
+        .form-heading .eyebrow {
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 10px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .form-heading .eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 20px; height: 2px;
+            background: var(--accent); border-radius: 2px;
+        }
+        .form-heading h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 42px; color: var(--ink);
+            letter-spacing: 1px; line-height: 1;
+        }
+        .form-heading p {
+            font-size: 13.5px; color: var(--muted);
+            margin-top: 8px; line-height: 1.6;
+        }
+
+        /* section heading */
+        .sec-head {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 22px; margin-top: 6px;
+        }
+        .sec-head-icon {
+            width: 32px; height: 32px;
+            background: var(--accent-dim);
+            border: 1px solid var(--accent-glow);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; color: var(--accent);
+            flex-shrink: 0;
+        }
+        .sec-head h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px; color: var(--ink); letter-spacing: 1px;
+        }
+        .sec-head .step-badge {
+            margin-left: auto;
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--muted);
+            background: #ece9e4;
+            border: 1px solid var(--border);
+            padding: 4px 12px; border-radius: 20px;
+        }
+
+        /* divider */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 30px 0;
+        }
+
+        /* ── form elements ── */
+        .form-group { margin-bottom: 18px; }
+
+        .form-label {
+            display: block;
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 0.8px; text-transform: uppercase;
+            color: var(--ink); margin-bottom: 8px;
+        }
+        .form-label i { color: var(--accent); margin-right: 6px; width: 13px; text-align: center; }
+
+        .input-wrap { position: relative; }
+        .input-wrap .icon {
+            position: absolute; left: 14px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted); font-size: 13px; pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            background: var(--input-bg);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px; color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none;
+        }
+        .form-group input.has-icon,
+        .form-group select.has-icon { padding-left: 40px; }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: #c5bfb9; }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+            background: #fff;
+        }
+        .form-group input:focus ~ .icon,
+        .input-wrap:focus-within .icon { color: var(--accent); }
+
+        .form-group select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 12 12'%3E%3Cpath fill='%238a8580' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+        .form-group select option { background: #fff; color: var(--ink); }
+
+        .form-help {
+            display: block;
+            font-size: 11px; color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+        /* ── file zone ── */
+        .file-zone {
+            border: 1.5px dashed var(--border);
+            border-radius: 12px;
+            padding: 26px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.25s;
+            background: var(--input-bg);
+            position: relative;
+        }
+        .file-zone:hover, .file-zone.over {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+        .file-zone input[type="file"] {
+            position: absolute; inset: 0; opacity: 0;
+            cursor: pointer; width: 100%; height: 100%;
+            padding: 0; border: none; box-shadow: none; background: none;
+        }
+        .file-zone input[type="file"]:focus { box-shadow: none; }
+        .file-zone-icon { font-size: 26px; color: var(--accent); margin-bottom: 10px; display: block; }
+        .file-zone p { font-size: 13px; color: var(--muted); }
+        .file-zone p strong { color: var(--accent); }
+        .file-zone small { font-size: 11px; color: #bbb; margin-top: 5px; display: block; }
+        .file-chosen {
+            display: none;
+            margin-top: 10px;
+            font-size: 12px; font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* ── password ── */
+        .pwd-wrap { position: relative; }
+        .pwd-wrap input { padding-right: 44px; }
+        .pwd-eye {
+            position: absolute; right: 13px; top: 50%;
+            transform: translateY(-50%);
+            background: none; border: none;
+            color: var(--muted); cursor: pointer;
+            font-size: 14px; transition: color 0.2s;
+            line-height: 1;
+        }
+        .pwd-eye:hover { color: var(--accent); }
+
+        .strength-row { display: flex; gap: 4px; margin-top: 8px; }
+        .seg {
+            flex: 1; height: 3px;
+            background: var(--border); border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .str-label { font-size: 11px; font-weight: 600; margin-top: 5px; color: var(--muted); }
+
+        /* ── checkbox ── */
+        .check-row {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 16px 18px;
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .check-row:hover { border-color: var(--accent); }
+        .check-row input[type="checkbox"] {
+            width: 17px; height: 17px;
+            accent-color: var(--accent);
+            flex-shrink: 0; margin-top: 2px;
+            cursor: pointer;
+        }
+        .check-row label {
+            font-size: 13px; color: var(--muted);
+            line-height: 1.65; cursor: pointer;
+            text-transform: none; letter-spacing: 0;
+            font-weight: 400; margin-bottom: 0;
+        }
+        .check-row label a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .check-row label a:hover { text-decoration: underline; }
+
+        /* ── submit ── */
+        .btn-submit {
+            width: 100%;
+            padding: 15px 24px;
+            background: var(--accent);
+            color: #fff;
+            border: none; border-radius: 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px; letter-spacing: 2px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            position: relative; overflow: hidden;
+        }
+        .btn-submit::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+            transform: translateX(-100%); transition: 0.5s;
+        }
+        .btn-submit:hover::after { transform: translateX(100%); }
+        .btn-submit:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 10px 28px rgba(200,69,26,0.3);
+            transform: translateY(-2px);
+        }
+        .btn-submit:active { transform: translateY(0); box-shadow: none; }
+        .btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+        .auth-footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
+        .auth-footer a:hover { text-decoration: underline; }
+
+        /* ══ SUCCESS OVERLAY ══ */
+        .overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(13,13,13,0.75);
+            z-index: 9999;
+            align-items: center; justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .success-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 52px 44px;
+            text-align: center;
+            max-width: 420px; width: 90%;
+            animation: popUp 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.85) translateY(20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .success-icon {
+            width: 76px; height: 76px;
+            background: var(--accent-dim);
+            border: 2px solid var(--accent-glow);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; color: var(--accent);
+            margin: 0 auto 24px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(200,69,26,0.25); }
+            50%      { box-shadow: 0 0 0 14px rgba(200,69,26,0); }
+        }
+        .success-box h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px; letter-spacing: 1px;
+            color: var(--ink); margin-bottom: 12px;
+        }
+        .success-box p { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 28px; }
+        .success-box p strong { color: var(--accent); }
+        .success-back {
+            padding: 12px 28px;
+            background: var(--accent);
+            border: none; border-radius: 10px;
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px; letter-spacing: 1.5px;
+            cursor: pointer; transition: 0.2s;
+        }
+        .success-back:hover { background: var(--accent-dark); }
+
+        /* ── toasts ── */
+        .toasts {
+            position: fixed; bottom: 24px; right: 24px;
+            z-index: 9998;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .toast {
+            background: var(--ink);
+            border-radius: 12px;
+            padding: 13px 18px;
+            display: flex; align-items: center; gap: 11px;
+            min-width: 250px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(80px); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { border-left: 3px solid #22c55e; }
+        .toast.error   { border-left: 3px solid #ef4444; }
+        .toast.info    { border-left: 3px solid #3b82f6; }
+        .toast i { font-size: 15px; }
+        .toast.success i { color: #22c55e; }
+        .toast.error   i { color: #ef4444; }
+        .toast.info    i { color: #3b82f6; }
+        .toast span { font-size: 13px; font-weight: 500; color: #fff; }
+
+        /* ── responsive ── */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .left-panel {
+                width: 100%; position: static; height: auto;
+                padding: 32px 28px 28px;
+            }
+            .left-hero h1 { font-size: 40px; }
+            .step-list { flex-direction: row; gap: 0; }
+            .step-item { flex-direction: column; align-items: center; flex: 1; text-align: center; }
+            .step-item:not(:last-child)::after {
+                left: 50%; top: 18px;
+                width: calc(100% - 4px); height: 2px;
+                transform: translateX(50%);
+            }
+            .step-body { padding: 8px 4px 0; }
+            .step-body span { display: none; }
+            .info-badge { margin-top: 20px; }
+            .right-panel { padding: 28px 20px 52px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 0; }
+            .grid-2 .form-group, .grid-3 .form-group { margin-bottom: 18px; }
+        }
+        @media (max-width: 520px) {
+            .right-panel { padding: 20px 14px 48px; }
+            .step-list { display: none; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SUCCESS OVERLAY -->
+<div class="overlay" id="successOverlay">
+    <div class="success-box">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <h2>Application Submitted!</h2>
+        <p>Your vendor application has been received. Our team will review your details and respond within <strong>2–3 business days</strong>.</p>
+        <button class="success-back" onclick="window.location.href='/pages/login.html'">
+            <i class="fas fa-arrow-left"></i> &nbsp; Back to Login
+        </button>
+    </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toasts" id="toasts"></div>
+
+<!-- LEFT PANEL -->
+<div class="left-panel">
+    <div class="brand">
+        <div class="brand-icon"><i class="fas fa-warehouse"></i></div>
+        <div>
+            <div class="brand-name">MSUKASHA <span>B2B</span></div>
+            <div class="brand-tag">Wholesale Portal</div>
+        </div>
+    </div>
+
+    <div class="left-hero">
+        <h1>BECOME A<br><em>VERIFIED</em><br>VENDOR</h1>
+        <p>Join Pakistan's growing B2B marketplace. Connect with thousands of buyers, manage factory orders, and grow your wholesale business — all in one place.</p>
+    </div>
+
+    <div class="step-list" id="stepList">
+        <div class="step-item active" id="si1">
+            <div class="step-num">1</div>
+            <div class="step-body">
+                <strong>Business Info</strong>
+                <span>Company name, contact details, business type & NTN</span>
+            </div>
+        </div>
+        <div class="step-item" id="si2">
+            <div class="step-num">2</div>
+            <div class="step-body">
+                <strong>Documents</strong>
+                <span>Upload NTN certificate or business license</span>
+            </div>
+        </div>
+        <div class="step-item" id="si3">
+            <div class="step-num">3</div>
+            <div class="step-body">
+                <strong>Account Setup</strong>
+                <span>Create your login credentials for the portal</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-badge">
+        <i class="fas fa-circle-info"></i>
+        <p>Applications are reviewed within <strong>2–3 business days</strong>. Ensure all details match your official registration documents.</p>
+    </div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+    <div class="right-topnav">
+        <a href="/pages/login.html"><i class="fas fa-arrow-left"></i> Already registered? Sign In</a>
+    </div>
+
+    <div class="form-heading">
+        <div class="eyebrow">New Supplier</div>
+        <h2>Vendor Application</h2>
+        <p>Fill in the form below accurately. All fields are required unless marked optional.</p>
+    </div>
+
+    <form id="vendorForm" novalidate>
+
+        <!-- SECTION 1: Business Information -->
+        <div class="sec-head">
+            <div class="sec-head-icon"><i class="fas fa-building"></i></div>
+            <h3>Business Information</h3>
+            <span class="step-badge">Step 1 of 3</span>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-user"></i> Representative Full Name</label>
+                <div class="input-wrap">
+                    <i class="fas fa-user icon"></i>
+                    <input type="text" class="has-icon" id="rep_name" name="representative_name" placeholder="e.g., Majid Ali" autocomplete="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-building"></i> Registered Company Name</label>
+                <div class="input-wrap">
+                    <i class="fas fa-building icon"></i>
+                    <input type="text" class="has-icon" id="company_name" name="company_name" placeholder="e.g., Al-Hamza Textiles Ltd" autocomplete="organization">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-envelope"></i> Business Email</label>
+                <div class="input-wrap">
+                    <i class="fas fa-envelope icon"></i>
+                    <input type="email" class="has-icon" id="email" name="email" placeholder="vendor@company.com" autocomplete="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-phone"></i> Contact Number</label>
+                <div class="input-wrap">
+                    <i class="fas fa-phone icon"></i>
+                    <input type="tel" class="has-icon" id="phone" name="phone" placeholder="+92 3xx xxxxxxx" autocomplete="tel">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-id-card"></i> NTN / Reg. Number</label>
+                <input type="text" id="ntn" name="ntn_number" placeholder="e.g., 1234567-8">
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-briefcase"></i> Business Type</label>
+                <select id="btype" name="business_type">
+                    <option value="">Select Type</option>
+                    <option value="manufacturer">Manufacturer / Factory</option>
+                    <option value="wholesaler">Wholesaler</option>
+                    <option value="distributor">Authorized Distributor</option>
+                    <option value="importer">Importer / Exporter</option>
+                    <option value="retailer">Bulk Retailer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-map-marker-alt"></i> City / Region</label>
+                <input type="text" id="city" name="city" placeholder="e.g., Karachi">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label"><i class="fas fa-tags"></i> Product Categories <span style="color:var(--muted);text-transform:none;letter-spacing:0;font-size:11px;font-weight:400;">(What will you sell?)</span></label>
+            <input type="text" id="categories" name="categories" placeholder="e.g., Textiles, Ceramics, Industrial Equipment">
+            <small class="form-help">Separate multiple categories with commas.</small>
+        </div>
+
+        <hr class="divider">
+
+        <!-- SECTION 2: Documents -->
+        <div class="sec-head">
+            <div class="sec-head-icon"><i class="fas fa-file-shield"></i></div>
+            <h3>Verification Documents</h3>
+            <span class="step-badge">Step 2 of 3</span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label"><i class="fas fa-file-pdf"></i> Business License / NTN Certificate</label>
+            <div class="file-zone" id="zone1">
+                <input type="file" id="biz_doc" name="business_doc" accept=".pdf,.jpg,.jpeg,.png"
+                       onchange="onFile(this,'chosen1','zone1')">
+                <i class="fas fa-cloud-arrow-up file-zone-icon"></i>
+                <p>Drag & drop here, or <strong>browse files</strong></p>
+                <small>PDF, JPG, PNG — Max 5 MB</small>
+                <div class="file-chosen" id="chosen1"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label"><i class="fas fa-id-badge"></i> CNIC / Owner ID <span style="color:var(--muted);text-transform:none;letter-spacing:0;font-size:11px;font-weight:400;">(Optional)</span></label>
+            <div class="file-zone" id="zone2">
+                <input type="file" id="cnic_doc" name="cnic_doc" accept=".pdf,.jpg,.jpeg,.png"
+                       onchange="onFile(this,'chosen2','zone2')">
+                <i class="fas fa-id-card file-zone-icon" style="color:var(--muted);"></i>
+                <p>Upload CNIC front & back <span style="color:var(--muted);">(optional but recommended)</span></p>
+                <small>PDF, JPG, PNG — Max 5 MB</small>
+                <div class="file-chosen" id="chosen2"></div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- SECTION 3: Account Setup -->
+        <div class="sec-head">
+            <div class="sec-head-icon"><i class="fas fa-lock"></i></div>
+            <h3>Account Setup</h3>
+            <span class="step-badge">Step 3 of 3</span>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-lock"></i> Create Password</label>
+                <div class="pwd-wrap">
+                    <input type="password" id="pwd" name="password"
+                           placeholder="Min. 8 characters"
+                           oninput="checkStr(this.value)"
+                           autocomplete="new-password">
+                    <button type="button" class="pwd-eye" onclick="toggleEye('pwd',this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="strength-row">
+                    <div class="seg" id="sg1"></div>
+                    <div class="seg" id="sg2"></div>
+                    <div class="seg" id="sg3"></div>
+                    <div class="seg" id="sg4"></div>
+                </div>
+                <div class="str-label" id="strLabel"></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-lock"></i> Confirm Password</label>
+                <div class="pwd-wrap">
+                    <input type="password" id="cpwd" name="confirm_password"
+                           placeholder="Re-enter password"
+                           autocomplete="new-password">
+                    <button type="button" class="pwd-eye" onclick="toggleEye('cpwd',this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Terms -->
+        <div class="check-row">
+            <input type="checkbox" id="terms" name="terms">
+            <label for="terms">
+                I confirm that all information provided is accurate and I agree to the
+                <a href="#">MSUKASHA Vendor Terms & Conditions</a> and
+                <a href="#">Privacy Policy</a>.
+                I understand my application is subject to admin review and approval.
+            </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">
+            <i class="fas fa-paper-plane"></i>
+            Submit Vendor Application
+        </button>
+
+        <p class="auth-footer">Already have an account? <a href="/pages/login.html">Sign in here &rarr;</a></p>
+
+    </form>
+</div>
+
+<script>
+    /* toast */
+    function toast(msg, type='info') {
+        const icons = { success:'fas fa-circle-check', error:'fas fa-circle-xmark', info:'fas fa-circle-info' };
+        const c = document.getElementById('toasts');
+        const t = document.createElement('div');
+        t.className = `toast ${type}`;
+        t.innerHTML = `<i class="${icons[type]}"></i><span>${msg}</span>`;
+        c.appendChild(t);
+        setTimeout(() => {
+            t.style.transition='0.4s'; t.style.opacity='0'; t.style.transform='translateX(80px)';
+            setTimeout(() => t.remove(), 400);
+        }, 3500);
+    }
+
+    /* file upload */
+    function onFile(input, labelId, zoneId) {
+        const f = input.files[0];
+        if (!f) return;
+        if (f.size > 5 * 1024 * 1024) {
+            toast('File exceeds 5 MB limit.', 'error');
+            input.value = ''; return;
+        }
+        const lbl = document.getElementById(labelId);
+        lbl.textContent = '✓  ' + f.name;
+        lbl.style.display = 'block';
+        const zone = document.getElementById(zoneId);
+        zone.style.borderColor = 'var(--accent)';
+        zone.style.background  = 'var(--accent-dim)';
+        toast(`"${f.name}" uploaded.`, 'success');
+        updateSteps();
+    }
+
+    document.querySelectorAll('.file-zone').forEach(z => {
+        z.addEventListener('dragover',  e => { e.preventDefault(); z.classList.add('over'); });
+        z.addEventListener('dragleave', ()  => z.classList.remove('over'));
+        z.addEventListener('drop',      ()  => z.classList.remove('over'));
+    });
+
+    /* password toggle */
+    function toggleEye(id, btn) {
+        const el = document.getElementById(id);
+        const vis = el.type === 'text';
+        el.type = vis ? 'password' : 'text';
+        btn.querySelector('i').className = vis ? 'fas fa-eye' : 'fas fa-eye-slash';
+    }
+
+    /* password strength */
+    function checkStr(v) {
+        let sc = 0;
+        if (v.length >= 8)          sc++;
+        if (/[A-Z]/.test(v))        sc++;
+        if (/[0-9]/.test(v))        sc++;
+        if (/[^A-Za-z0-9]/.test(v)) sc++;
+        const cols = ['#ef4444','#f97316','#eab308','#c8451a'];
+        const lbls = ['Weak','Fair','Good','Strong'];
+        for (let i = 1; i <= 4; i++)
+            document.getElementById('sg'+i).style.background = i <= sc ? cols[sc-1] : 'var(--border)';
+        const sl = document.getElementById('strLabel');
+        sl.textContent = v.length ? (lbls[sc-1] || '') : '';
+        sl.style.color = v.length ? (cols[sc-1] || 'var(--muted)') : 'var(--muted)';
+        updateSteps();
+    }
+
+    /* step indicator */
+    function updateSteps() {
+        const s1done = ['rep_name','company_name','email','phone'].every(id => document.getElementById(id).value.trim());
+        const s2done = document.getElementById('biz_doc').files.length > 0;
+        const s3done = document.getElementById('pwd').value.length >= 8;
+
+        const setStep = (id, done, active) => {
+            const el = document.getElementById(id);
+            el.className = 'step-item' + (done ? ' done' : active ? ' active' : '');
+            const num = el.querySelector('.step-num');
+            num.innerHTML = done ? '<i class="fas fa-check" style="font-size:10px;"></i>' : id.replace('si','');
+        };
+        setStep('si1', s1done, !s1done);
+        setStep('si2', s2done, s1done && !s2done);
+        setStep('si3', s3done, s2done && !s3done);
+    }
+
+    document.querySelectorAll('input,select').forEach(el => {
+        el.addEventListener('input',  updateSteps);
+        el.addEventListener('change', updateSteps);
+    });
+
+    /* submit */
+    async function handleSubmit() {
+        const required = [
+            { id:'rep_name',     msg:'Please enter the representative full name.' },
+            { id:'company_name', msg:'Please enter your registered company name.' },
+            { id:'email',        msg:'Please enter a valid business email address.' },
+            { id:'phone',        msg:'Please enter your contact number.' },
+            { id:'ntn',          msg:'Please enter your NTN or registration number.' },
+            { id:'btype',        msg:'Please select your business type.' },
+        ];
+        for (const f of required) {
+            const el = document.getElementById(f.id);
+            if (!el.value.trim()) {
+                toast(f.msg, 'error'); el.focus();
+                el.style.borderColor = '#ef4444';
+                el.addEventListener('input', () => el.style.borderColor = '', { once:true });
+                return;
+            }
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value)) {
+            toast('Please enter a valid email address.', 'error'); return;
+        }
+        const pwd = document.getElementById('pwd').value;
+        const cpw = document.getElementById('cpwd').value;
+        if (pwd.length < 8) { toast('Password must be at least 8 characters.', 'error'); return; }
+        if (pwd !== cpw)    { toast('Passwords do not match.', 'error'); return; }
+        if (!document.getElementById('terms').checked) {
+            toast('Please agree to the Terms & Conditions.', 'error'); return;
+        }
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> &nbsp; Submitting Application...';
+
+        const form = document.getElementById('vendorForm');
+        const formData = new FormData(form);
+
+        try {
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (res.ok && (data.success || res.status === 200)) {
+                document.getElementById('successOverlay').classList.add('show');
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Vendor Application';
+                toast(data.message || data.error || 'Submission failed. Please try again.', 'error');
+            }
+        } catch (err) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Vendor Application';
+            toast('Server se connection nahi ho saka. Please try again.', 'error');
+        }
+    }
+</script>
+</body>
+</html>
