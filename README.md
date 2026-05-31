@@ -7,7 +7,7 @@ npm install
 node server.js
 ```
 
-Server runs on: http://localhost:8000
+Server runs on: http://sellermsukasha.com
 
 ## Folder Structure
 ```
