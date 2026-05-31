@@ -38,43 +38,48 @@ const requireAuth = (req, res, next) => {
     next();
 };
 
+// Helper function to serve HTML files
+const serveFile = (filename) => (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', filename));
+};
+
 // ── Public Pages ──
-app.get('/',          (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/login',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'login.html')));
-app.get('/register',  (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'register.html')));
-app.get('/about',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'about.html')));
-app.get('/contact',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'contact.html')));
-app.get('/become-seller',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'become-seller.html')));
-app.get('/start-selling',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'start-selling.html')));
-app.get('/seller-policies',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'seller-policies.html')));
-app.get('/privacy-policy',    (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'privacy-policy.html')));
-app.get('/terms-conditions',  (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'terms-conditions.html')));
-app.get('/refund-policy',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'refund-policy.html')));
-app.get('/commission-fees',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'commission-fees.html')));
-app.get('/seller-support',    (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'seller-support.html')));
-app.get('/sellers',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'sellers.html')));
+app.get('/',          serveFile('index.html'));
+app.get('/login',     serveFile('pages/login.html'));
+app.get('/register',  serveFile('pages/register.html'));
+app.get('/about',     serveFile('pages/about.html'));
+app.get('/contact',   serveFile('pages/contact.html'));
+app.get('/become-seller',   serveFile('pages/become-seller.html'));
+app.get('/start-selling',   serveFile('pages/start-selling.html'));
+app.get('/seller-policies', serveFile('pages/seller-policies.html'));
+app.get('/privacy-policy',  serveFile('pages/privacy-policy.html'));
+app.get('/terms-conditions',serveFile('pages/terms-conditions.html'));
+app.get('/refund-policy',   serveFile('pages/refund-policy.html'));
+app.get('/commission-fees', serveFile('pages/commission-fees.html'));
+app.get('/seller-support',  serveFile('pages/seller-support.html'));
+app.get('/sellers',         serveFile('pages/sellers.html'));
 
 // ── Protected Seller Pages ──
-app.get('/dashboard',   requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'seller-dashboard.html')));
-app.get('/products',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'products.html')));
-app.get('/add-product', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'add-product.html')));
-app.get('/orders',      requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'orders.html')));
-app.get('/bulk-orders', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'bulk-orders.html')));
-app.get('/payments',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'payments.html')));
-app.get('/profile',     requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'profile.html')));
-app.get('/settings',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'settings.html')));
-app.get('/messages',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'messages.html')));
-app.get('/analytics',   requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'analytics.html')));
-app.get('/notifications', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'notifications.html')));
-app.get('/security',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'security.html')));
-app.get('/commission',  requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'commission.html')));
-app.get('/logout',      (req, res)  => res.sendFile(path.join(__dirname, 'public', 'pages', 'logout.html')));
+app.get('/dashboard',   requireAuth, serveFile('pages/seller-dashboard.html'));
+app.get('/products',    requireAuth, serveFile('pages/products.html'));
+app.get('/add-product', requireAuth, serveFile('pages/add-product.html'));
+app.get('/orders',      requireAuth, serveFile('pages/orders.html'));
+app.get('/bulk-orders', requireAuth, serveFile('pages/bulk-orders.html'));
+app.get('/payments',    requireAuth, serveFile('pages/payments.html'));
+app.get('/profile',     requireAuth, serveFile('pages/profile.html'));
+app.get('/settings',    requireAuth, serveFile('pages/settings.html'));
+app.get('/messages',    requireAuth, serveFile('pages/messages.html'));
+app.get('/analytics',   requireAuth, serveFile('pages/analytics.html'));
+app.get('/notifications', requireAuth, serveFile('pages/notifications.html'));
+app.get('/security',    requireAuth, serveFile('pages/security.html'));
+app.get('/commission',  requireAuth, serveFile('pages/commission.html'));
+app.get('/logout',      serveFile('pages/logout.html'));
 
 // ── Admin Panel ──
-app.get('/msukasha-admin-control', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'admin.html')));
-app.get('/admin-approvals',        (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'approvals.html')));
-app.get('/admin-users',            (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'users.html')));
-app.get('/admin-database',         (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'database.html')));
+app.get('/msukasha-admin-control', serveFile('pages/admin.html'));
+app.get('/admin-approvals',        serveFile('pages/approvals.html'));
+app.get('/admin-users',            serveFile('pages/users.html'));
+app.get('/admin-database',         serveFile('pages/database.html'));
 
 // ── API Routes ──
 app.use('/api/auth',   require('./routes/auth'));
