@@ -39,42 +39,42 @@ const requireAuth = (req, res, next) => {
 };
 
 // ── Public Pages ──
-app.get('/',          (req, res) => res.sendFile(path.join(__dirname, 'landing.html')));
-app.get('/login',     (req, res) => res.sendFile(path.join(__dirname, 'pages', 'login.html')));
-app.get('/register',  (req, res) => res.sendFile(path.join(__dirname, 'pages', 'register.html')));
-app.get('/about',     (req, res) => res.sendFile(path.join(__dirname, 'pages', 'about.html')));
-app.get('/contact',   (req, res) => res.sendFile(path.join(__dirname, 'pages', 'contact.html')));
-app.get('/become-seller',     (req, res) => res.sendFile(path.join(__dirname, 'pages', 'become-seller.html')));
-app.get('/start-selling',     (req, res) => res.sendFile(path.join(__dirname, 'pages', 'start-selling.html')));
-app.get('/seller-policies',   (req, res) => res.sendFile(path.join(__dirname, 'pages', 'seller-policies.html')));
-app.get('/privacy-policy',    (req, res) => res.sendFile(path.join(__dirname, 'pages', 'privacy-policy.html')));
-app.get('/terms-conditions',  (req, res) => res.sendFile(path.join(__dirname, 'pages', 'terms-conditions.html')));
-app.get('/refund-policy',     (req, res) => res.sendFile(path.join(__dirname, 'pages', 'refund-policy.html')));
-app.get('/commission-fees',   (req, res) => res.sendFile(path.join(__dirname, 'pages', 'commission-fees.html')));
-app.get('/seller-support',    (req, res) => res.sendFile(path.join(__dirname, 'pages', 'seller-support.html')));
-app.get('/sellers',   (req, res) => res.sendFile(path.join(__dirname, 'pages', 'sellers.html')));
+app.get('/',          (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+app.get('/login',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'login.html')));
+app.get('/register',  (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'register.html')));
+app.get('/about',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'about.html')));
+app.get('/contact',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'contact.html')));
+app.get('/become-seller',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'become-seller.html')));
+app.get('/start-selling',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'start-selling.html')));
+app.get('/seller-policies',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'seller-policies.html')));
+app.get('/privacy-policy',    (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'privacy-policy.html')));
+app.get('/terms-conditions',  (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'terms-conditions.html')));
+app.get('/refund-policy',     (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'refund-policy.html')));
+app.get('/commission-fees',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'commission-fees.html')));
+app.get('/seller-support',    (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'seller-support.html')));
+app.get('/sellers',   (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'sellers.html')));
 
 // ── Protected Seller Pages ──
-app.get('/dashboard',   requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'seller-dashboard.html')));
-app.get('/products',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'products.html')));
-app.get('/add-product', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'add-product.html')));
-app.get('/orders',      requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'orders.html')));
-app.get('/bulk-orders', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'bulk-orders.html')));
-app.get('/payments',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'payments.html')));
-app.get('/profile',     requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'profile.html')));
-app.get('/settings',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'settings.html')));
-app.get('/messages',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'messages.html')));
-app.get('/analytics',   requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'analytics.html')));
-app.get('/notifications', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'notifications.html')));
-app.get('/security',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'security.html')));
-app.get('/commission',  requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'pages', 'commission.html')));
-app.get('/logout',      (req, res)  => res.sendFile(path.join(__dirname, 'pages', 'logout.html')));
+app.get('/dashboard',   requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'seller-dashboard.html')));
+app.get('/products',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'products.html')));
+app.get('/add-product', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'add-product.html')));
+app.get('/orders',      requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'orders.html')));
+app.get('/bulk-orders', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'bulk-orders.html')));
+app.get('/payments',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'payments.html')));
+app.get('/profile',     requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'profile.html')));
+app.get('/settings',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'settings.html')));
+app.get('/messages',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'messages.html')));
+app.get('/analytics',   requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'analytics.html')));
+app.get('/notifications', requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'notifications.html')));
+app.get('/security',    requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'security.html')));
+app.get('/commission',  requireAuth, (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'commission.html')));
+app.get('/logout',      (req, res)  => res.sendFile(path.join(__dirname, 'public', 'pages', 'logout.html')));
 
 // ── Admin Panel ──
-app.get('/msukasha-admin-control', (req, res) => res.sendFile(path.join(__dirname, 'pages', 'admin.html')));
-app.get('/admin-approvals',        (req, res) => res.sendFile(path.join(__dirname, 'pages', 'approvals.html')));
-app.get('/admin-users',            (req, res) => res.sendFile(path.join(__dirname, 'pages', 'users.html')));
-app.get('/admin-database',         (req, res) => res.sendFile(path.join(__dirname, 'pages', 'database.html')));
+app.get('/msukasha-admin-control', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'admin.html')));
+app.get('/admin-approvals',        (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'approvals.html')));
+app.get('/admin-users',            (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'users.html')));
+app.get('/admin-database',         (req, res) => res.sendFile(path.join(__dirname, 'public', 'pages', 'database.html')));
 
 // ── API Routes ──
 app.use('/api/auth',   require('./routes/auth'));
