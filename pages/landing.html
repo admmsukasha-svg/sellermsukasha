@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSUKASHA B2B — Pakistan's Wholesale Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --ink: #0d0d0d; --surface: #f5f2ed;
+            --accent: #c8451a; --accent-dark: #a33614;
+            --accent-dim: rgba(200,69,26,0.08); --accent-glow: rgba(200,69,26,0.18);
+            --muted: #8a8580; --border: #e0dcd6; --input-bg: #faf9f7;
+        }
+        body { font-family: 'DM Sans', sans-serif; background: var(--surface); overflow-x: hidden; }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            background: var(--ink); padding: 18px 64px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .navbar .logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #fff; text-decoration: none; }
+        .navbar .logo span { color: var(--accent); }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-links a { color: #888; font-size: 13px; text-decoration: none; padding: 8px 12px; border-radius: 8px; transition: 0.2s; }
+        .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+        .nav-links .btn-outline { border: 1px solid #2a2a2a; color: #aaa !important; }
+        .nav-links .btn-outline:hover { border-color: var(--accent); color: var(--accent) !important; background: var(--accent-dim); }
+        .nav-links .btn-cta { background: var(--accent); color: #fff !important; font-weight: 600; }
+        .nav-links .btn-cta:hover { background: var(--accent-dark); }
+        .nav-links .btn-admin { background: #1a1a2e; border: 1px solid #2e2e4a; color: #7a8aff !important; font-weight: 600; }
+        .nav-links .btn-admin:hover { background: #22224a; border-color: #7a8aff; color: #a0aaff !important; }
+
+        /* ── HERO ── */
+        .hero {
+            background: var(--ink); min-height: 92vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 80px 48px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,69,26,0.15) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: -80px; right: -80px;
+            width: 300px; height: 300px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,69,26,0.1) 0%, transparent 70%);
+        }
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(200,69,26,0.1); border: 1px solid rgba(200,69,26,0.2);
+            border-radius: 20px; padding: 6px 16px;
+            font-size: 11px; font-weight: 600; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--accent);
+            margin-bottom: 28px; animation: fadeUp 0.6s ease both;
+        }
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(64px, 9vw, 130px);
+            line-height: 0.9; color: #fff; letter-spacing: 1px;
+            animation: fadeUp 0.7s 0.1s ease both;
+        }
+        .hero h1 em { font-style: normal; color: var(--accent); }
+        .hero p {
+            font-size: 16px; color: #666; margin: 24px auto 40px;
+            max-width: 520px; line-height: 1.75;
+            animation: fadeUp 0.7s 0.2s ease both;
+        }
+        .hero-btns {
+            display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+            animation: fadeUp 0.7s 0.3s ease both;
+        }
+        .btn-primary {
+            padding: 15px 32px; background: var(--accent); color: #fff;
+            border: none; border-radius: 12px;
+            font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px;
+            text-decoration: none; cursor: pointer;
+            transition: 0.2s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-primary:hover { background: var(--accent-dark); box-shadow: 0 10px 28px rgba(200,69,26,0.3); transform: translateY(-2px); }
+        .btn-ghost {
+            padding: 15px 32px; background: transparent; color: #aaa;
+            border: 1.5px solid #2a2a2a; border-radius: 12px;
+            font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px;
+            text-decoration: none; transition: 0.2s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+        .hero-stats {
+            display: flex; gap: 48px; margin-top: 72px;
+            animation: fadeUp 0.7s 0.4s ease both;
+        }
+        .hero-stat { text-align: center; border-top: 1px solid #1e1e1e; padding-top: 16px; }
+        .hero-stat .num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: #fff; letter-spacing: 1px; }
+        .hero-stat .lbl { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #444; margin-top: 4px; }
+
+        /* ── SECTION BASE ── */
+        section { padding: 96px 64px; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+        .sec-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .sec-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--accent); border-radius: 2px; }
+        .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 56px); color: var(--ink); letter-spacing: 1px; line-height: 1; margin-bottom: 10px; }
+        .sec-title em { font-style: normal; color: var(--accent); }
+        .sec-sub { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 520px; margin-bottom: 48px; }
+
+        /* ── CARDS ── */
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+        .card { background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 30px 28px; transition: 0.2s; }
+        .card:hover { border-color: var(--accent); box-shadow: 0 8px 28px rgba(200,69,26,0.08); transform: translateY(-3px); }
+        .card-icon { width: 48px; height: 48px; background: var(--accent-dim); border: 1px solid var(--accent-glow); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--accent); margin-bottom: 18px; }
+        .card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--ink); letter-spacing: 1px; margin-bottom: 8px; }
+        .card p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+
+        /* ── HOW IT WORKS ── */
+        .how-section { background: var(--ink); }
+        .how-section .sec-title { color: #fff; }
+        .how-section .sec-sub { color: #555; }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; }
+        .step-card { padding: 36px 28px; border-right: 1px solid #1a1a1a; position: relative; }
+        .step-card:last-child { border-right: none; }
+        .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; color: #1a1a1a; letter-spacing: 1px; line-height: 1; margin-bottom: 16px; }
+        .step-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #fff; letter-spacing: 1px; margin-bottom: 8px; }
+        .step-card p { font-size: 13px; color: #555; line-height: 1.7; }
+        .step-card::after { content: ''; position: absolute; top: 36px; right: -1px; width: 2px; height: 40px; background: var(--accent); display: none; }
+
+        /* ── CATEGORIES ── */
+        .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 48px; }
+        .cat-card { background: #fff; border: 1.5px solid var(--border); border-radius: 14px; padding: 24px 20px; text-align: center; text-decoration: none; transition: 0.2s; }
+        .cat-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(200,69,26,0.08); }
+        .cat-card i { font-size: 28px; color: var(--accent); margin-bottom: 12px; display: block; }
+        .cat-card span { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--ink); letter-spacing: 1px; }
+
+        /* ── CTA BANNER ── */
+        .cta-banner {
+            background: var(--accent); padding: 80px 64px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .cta-banner::before {
+            content: ''; position: absolute; top: -60px; left: -60px;
+            width: 240px; height: 240px; border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+        }
+        .cta-banner::after {
+            content: ''; position: absolute; bottom: -80px; right: -40px;
+            width: 280px; height: 280px; border-radius: 50%;
+            background: rgba(0,0,0,0.08);
+        }
+        .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 68px); color: #fff; letter-spacing: 1px; line-height: 1; margin-bottom: 16px; position: relative; z-index: 1; }
+        .cta-banner p { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; position: relative; z-index: 1; }
+        .cta-banner .btn-white { padding: 15px 36px; background: #fff; color: var(--accent); border: none; border-radius: 12px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s; position: relative; z-index: 1; }
+        .cta-banner .btn-white:hover { background: var(--ink); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.2); }
+
+        /* ── FOOTER ── */
+        .footer { background: var(--ink); padding: 72px 64px 24px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
+        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: #fff; margin-bottom: 14px; }
+        .footer-logo span { color: var(--accent); }
+        .footer-desc { font-size: 13px; color: #444; line-height: 1.8; margin-bottom: 0; }
+        .footer h4 { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 2px; color: #fff; margin-bottom: 18px; }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 11px; }
+        .footer ul li a { font-size: 13px; color: #444; text-decoration: none; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .footer ul li a:hover { color: var(--accent); padding-left: 4px; }
+        .footer ul li a::before { content: ''; display: inline-block; width: 0; height: 1px; background: var(--accent); transition: width 0.2s; }
+        .footer ul li a:hover::before { width: 8px; }
+        .socials { display: flex; gap: 10px; margin-top: 20px; }
+        .socials a { width: 38px; height: 38px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #444; font-size: 14px; text-decoration: none; transition: 0.2s; }
+        .socials a:hover { background: var(--accent); color: #fff; transform: translateY(-3px); }
+        .footer-divider { border: none; border-top: 1px solid #141414; margin-bottom: 24px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-bottom p { font-size: 12px; color: #333; }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-links a { font-size: 12px; color: #333; text-decoration: none; transition: 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .navbar { padding: 16px 20px; }
+            .nav-links a:not(.btn-cta):not(.btn-outline) { display: none; }
+            section { padding: 64px 24px; }
+            .hero { padding: 64px 24px; min-height: auto; }
+            .hero-stats { gap: 28px; }
+            .steps-grid { grid-template-columns: 1fr 1fr; }
+            .step-card { border-right: none; border-bottom: 1px solid #1a1a1a; }
+            .cta-banner { padding: 56px 24px; }
+            .footer { padding: 56px 24px 24px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 520px) {
+            .hero h1 { font-size: 52px; }
+            .hero-stats { flex-wrap: wrap; gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="landing.html" class="logo">MSUKASHA <span>B2B</span></a>
+    <div class="nav-links">
+        <a href="#benefits">Benefits</a>
+        <a href="#how">How It Works</a>
+        <a href="#categories">Categories</a>
+        <a href="pages/about.html">About</a>
+        <a href="pages/contact.html">Contact</a>
+        <a href="pages/admin.html" class="btn-admin"><i class="fas fa-shield-halved" style="font-size:11px"></i> Admin Panel</a>
+        <a href="pages/login.html" class="btn-outline">Sign In</a>
+        <a href="pages/register.html" class="btn-cta">Register Company</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-eyebrow"><i class="fas fa-shield-halved"></i> Pakistan's #1 B2B Wholesale Portal</div>
+    <h1>SCALE YOUR<br>FACTORY &<br><em>WHOLESALE</em><br>BUSINESS</h1>
+    <p>Connect with bulk buyers, verified corporate entities, and large-scale retailers across Pakistan and 34+ countries.</p>
+    <div class="hero-btns">
+        <a href="pages/register.html" class="btn-primary"><i class="fas fa-rocket"></i> Apply for Vendor Account</a>
+        <a href="#benefits" class="btn-ghost"><i class="fas fa-circle-play"></i> Learn Benefits</a>
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat"><div class="num">2400+</div><div class="lbl">Active Vendors</div></div>
+        <div class="hero-stat"><div class="num">98K</div><div class="lbl">Orders / Month</div></div>
+        <div class="hero-stat"><div class="num">34</div><div class="lbl">Countries</div></div>
+        <div class="hero-stat"><div class="num">PKR 2B+</div><div class="lbl">Trade Volume</div></div>
+    </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+    <div class="section-inner">
+        <div class="sec-eyebrow">Why MSUKASHA</div>
+        <div class="sec-title">BUILT STRICTLY FOR<br><em>B2B TRADE</em></div>
+        <div class="sec-sub">No retail noise. No single-item buyers. Just serious wholesale orders from verified businesses.</div>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-boxes-stacked"></i></div>
+                <h3>Bulk MOQ Control</h3>
+                <p>Set custom Minimum Order Quantities so you never have to deal with single retail buyers again. Your catalog, your rules.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Tiered Pricing</h3>
+                <p>Offer dynamic volume discounts automatically. Lower price per unit when a buyer purchases 500+ items — zero manual negotiation.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-shield-halved"></i></div>
+                <h3>Verified Buyers Only</h3>
+                <p>Your pricing tables and commercial catalog are completely hidden from regular consumers and unverified guests.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Real-Time Analytics</h3>
+                <p>Track product views, inquiry rates, order volumes, and monthly revenue from a powerful seller dashboard.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-globe"></i></div>
+                <h3>Export-Ready Platform</h3>
+                <p>Reach importers and distributors across 34+ countries actively sourcing products from Pakistan.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-headset"></i></div>
+                <h3>24/7 Seller Support</h3>
+                <p>Dedicated vendor success team available round the clock via WhatsApp, email, and support tickets.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="how-section">
+    <div class="section-inner">
+        <div class="sec-eyebrow" style="color:var(--accent)">Process</div>
+        <div class="sec-title">HOW IT <em>WORKS</em></div>
+        <div class="sec-sub">Get your wholesale business online in 4 simple steps.</div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h3>Register Business</h3>
+                <p>Submit your vendor application with NTN, business license, and product categories. Takes under 10 minutes.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h3>Get Verified</h3>
+                <p>Our admin team reviews your documents within 2–3 business days and activates your seller account.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h3>List Products</h3>
+                <p>Add your wholesale catalog with MOQ, pricing tiers, specifications, and product photos.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">04</div>
+                <h3>Receive Orders</h3>
+                <p>Verified bulk buyers find your listings and place wholesale orders directly through the platform.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+    <div class="section-inner">
+        <div class="sec-eyebrow">Product Categories</div>
+        <div class="sec-title">BROWSE BY <em>INDUSTRY</em></div>
+        <div class="sec-sub">From textiles to industrial equipment — MSUKASHA covers every major wholesale category.</div>
+        <div class="cat-grid">
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-shirt"></i><span>Textiles & Fabrics</span></a>
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-gears"></i><span>Industrial Equipment</span></a>
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-bowl-food"></i><span>Agricultural Goods</span></a>
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-microchip"></i><span>Electronics</span></a>
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-flask"></i><span>Chemicals & Raw Materials</span></a>
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-box-open"></i><span>Packaging Materials</span></a>
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-gem"></i><span>Ceramics & Pottery</span></a>
+            <a href="pages/add-product.html" class="cat-card"><i class="fas fa-ellipsis"></i><span>Other Categories</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+    <h2>READY TO GROW YOUR<br>WHOLESALE BUSINESS?</h2>
+    <p>Join 2,400+ verified Pakistani manufacturers and wholesalers already selling on MSUKASHA B2B.</p>
+    <a href="pages/register.html" class="btn-white"><i class="fas fa-paper-plane"></i> Apply for Vendor Account</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo">MSUKASHA <span>B2B</span></div>
+            <p class="footer-desc">Pakistan's professional B2B marketplace connecting trusted buyers and verified sellers worldwide. Grow your business with secure trading, bulk orders, and powerful marketplace tools.</p>
+            <div class="socials">
+                <a href="https://www.facebook.com/profile.php?id=61554607264842" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/msukasha.co/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/msukasha-com-63a18a3a3" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://x.com/msukashacom" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://whatsapp.com/channel/0029Vb7LoQ3HVvTgKIJuMm1R" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="landing.html">Home</a></li>
+                <li><a href="pages/add-product.html">Products</a></li>
+                <li><a href="pages/become-seller.html">Become Seller</a></li>
+                <li><a href="pages/about.html">About Us</a></li>
+                <li><a href="pages/contact.html">Contact</a></li>
+                <li><a href="pages/admin.html">Admin Panel</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Seller Center</h4>
+            <ul>
+                <li><a href="pages/seller-dashboard.html">Seller Dashboard</a></li>
+                <li><a href="pages/start-selling.html">Start Selling</a></li>
+                <li><a href="pages/seller-policies.html">Seller Policies</a></li>
+                <li><a href="pages/commission-fees.html">Commission & Fees</a></li>
+                <li><a href="pages/seller-support.html">Seller Support</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contact Us</h4>
+            <ul>
+                <li><a href="mailto:supp.msukasha@gmail.com"><i class="fas fa-envelope"></i> supp.msukasha@gmail.com</a></li>
+                <li><a href="tel:+923313730953"><i class="fas fa-phone"></i> +92 331 3730953</a></li>
+                <li><a href="pages/contact.html"><i class="fas fa-clock"></i> Available 24/7</a></li>
+                <li><a href="pages/about.html"><i class="fas fa-map-marker-alt"></i> Pakistan</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+        <p>© 2026 MSUKASHA. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="pages/privacy-policy.html">Privacy Policy</a>
+            <a href="pages/terms-conditions.html">Terms & Conditions</a>
+            <a href="pages/refund-policy.html">Refund Policy</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users — MSUKASHA Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d084; --primary-dim: rgba(0,208,132,0.12); --primary-glow: rgba(0,208,132,0.35);
+            --dark: #040d18; --dark2: #0b1524; --dark3: #111e30;
+            --border: #1a2d44; --border2: #243548;
+            --text: #7a95b0; --text2: #b0c4d8; --white: #e8f0f8;
+            --red: #ef4444; --green: #22c55e; --blue: #3b82f6;
+            --orange: #f97316; --yellow: #eab308; --sidebar-w: 270px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html,body { height:100%; }
+        body { background:var(--dark); color:var(--white); font-family:'DM Sans',sans-serif; overflow-x:hidden; }
+        ::-webkit-scrollbar { width:5px; height:5px; }
+        ::-webkit-scrollbar-track { background:var(--dark2); }
+        ::-webkit-scrollbar-thumb { background:var(--border2); border-radius:10px; }
+        ::-webkit-scrollbar-thumb:hover { background:var(--primary); }
+        .layout { display:flex; min-height:100vh; }
+        .sidebar { width:var(--sidebar-w); background:var(--dark2); padding:24px 16px; position:fixed; height:100vh; overflow-y:auto; border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:100; transition:0.3s; }
+        .logo { display:flex; align-items:center; gap:10px; padding:0 10px; margin-bottom:32px; }
+        .logo-icon { width:40px; height:40px; background:var(--primary-dim); border:1px solid var(--primary-glow); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--primary); flex-shrink:0; }
+        .logo-text { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; color:var(--primary); letter-spacing:1px; }
+        .logo-sub { font-size:10px; color:var(--text); margin-top:2px; letter-spacing:2px; text-transform:uppercase; }
+        .nav-label { font-size:10px; color:var(--text); letter-spacing:2px; text-transform:uppercase; padding:6px 12px; margin-top:10px; margin-bottom:4px; }
+        .sidebar ul { list-style:none; }
+        .sidebar ul li { margin:2px 0; }
+        .sidebar ul li a { color:var(--text); text-decoration:none; padding:11px 14px; display:flex; align-items:center; gap:12px; border-radius:12px; transition:0.2s; font-weight:500; font-size:14px; border:1px solid transparent; }
+        .sidebar ul li a i { width:18px; text-align:center; font-size:15px; flex-shrink:0; }
+        .sidebar ul li a .badge { margin-left:auto; background:var(--primary); color:#000; font-size:10px; font-weight:700; padding:2px 7px; border-radius:20px; }
+        .sidebar ul li a:hover, .sidebar ul li a.active { background:var(--primary-dim); color:var(--primary); border-color:rgba(0,208,132,0.15); }
+        .sidebar-footer { margin-top:auto; padding-top:16px; border-top:1px solid var(--border); }
+        .sidebar-footer a { color:#ef4444 !important; }
+        .sidebar-footer a:hover { background:rgba(239,68,68,0.1) !important; border-color:rgba(239,68,68,0.2) !important; }
+        .main { margin-left:var(--sidebar-w); padding:28px; flex:1; min-width:0; }
+        .topbar { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; gap:20px; flex-wrap:wrap; }
+        .topbar-left h1 { font-family:'Syne',sans-serif; font-size:32px; font-weight:800; letter-spacing:0.5px; line-height:1.2; }
+        .topbar-left p { color:var(--text); font-size:14px; margin-top:6px; }
+        .topbar-right { display:flex; align-items:center; gap:14px; }
+        .topbar-pill { background:var(--primary-dim); border:1px solid var(--primary-glow); color:var(--primary); padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600; display:flex; align-items:center; gap:8px; }
+        .topbar-pill .dot { width:7px; height:7px; background:var(--primary); border-radius:50%; animation:pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.3);} }
+        .topbar-avatar { width:40px; height:40px; background:linear-gradient(135deg,var(--primary),#00a86b); border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:#000; cursor:pointer; }
+        .panel { background:var(--dark2); padding:22px; border-radius:18px; border:1px solid var(--border); overflow:auto; margin-bottom:20px; }
+        .panel-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px; }
+        .panel-header h2 { font-family:'Syne',sans-serif; font-size:17px; font-weight:700; }
+        .panel-header h2 span { font-size:11px; font-family:'DM Sans',sans-serif; background:var(--primary-dim); color:var(--primary); padding:3px 9px; border-radius:20px; margin-left:8px; font-weight:600; vertical-align:middle; }
+        .view-all { font-size:12px; color:var(--primary); text-decoration:none; font-weight:600; display:flex; align-items:center; gap:5px; }
+        table { width:100%; border-collapse:collapse; font-size:13px; }
+        table th { padding:10px 14px; text-align:left; color:var(--text); font-size:11px; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid var(--border); font-weight:600; }
+        table td { padding:13px 14px; border-bottom:1px solid var(--border); color:var(--text2); vertical-align:middle; }
+        table tr:last-child td { border-bottom:none; }
+        table tr:hover td { background:rgba(255,255,255,0.02); }
+        .seller-info { display:flex; align-items:center; gap:10px; }
+        .seller-avatar { width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#000; flex-shrink:0; }
+        .seller-name { font-weight:600; color:var(--white); font-size:13px; }
+        .seller-sub { font-size:11px; color:var(--text); }
+        .status-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+        .status-badge.pending { background:rgba(234,179,8,0.1); color:#eab308; border:1px solid rgba(234,179,8,0.2); }
+        .status-badge.active { background:rgba(34,197,94,0.1); color:#22c55e; border:1px solid rgba(34,197,94,0.2); }
+        .status-badge.rejected { background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2); }
+        .status-badge::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; }
+        .btn { padding:7px 14px; border:none; border-radius:8px; cursor:pointer; color:white; font-weight:600; font-size:12px; font-family:'DM Sans',sans-serif; margin-right:5px; transition:0.2s; display:inline-flex; align-items:center; gap:5px; }
+        .btn:hover { transform:translateY(-2px); opacity:0.9; }
+        .approve { background:linear-gradient(135deg,#16a34a,#15803d); }
+        .reject { background:linear-gradient(135deg,#dc2626,#b91c1c); }
+        .edit { background:linear-gradient(135deg,#2563eb,#1d4ed8); }
+        .delete { background:linear-gradient(135deg,#7f1d1d,#450a0a); }
+        .primary-btn { background:linear-gradient(135deg,var(--primary),#00a86b); color:#000; padding:10px 20px; border:none; border-radius:10px; font-weight:700; font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; display:inline-flex; align-items:center; gap:8px; transition:0.2s; }
+        .primary-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,208,132,0.3); }
+        .search-bar { display:flex; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
+        .search-bar input { flex:1; min-width:200px; background:var(--dark); border:1px solid var(--border2); border-radius:10px; padding:10px 16px; color:var(--white); font-family:'DM Sans',sans-serif; font-size:13px; }
+        .search-bar input:focus { outline:none; border-color:var(--primary); }
+        .search-bar select { background:var(--dark); border:1px solid var(--border2); border-radius:10px; padding:10px 16px; color:var(--text2); font-family:'DM Sans',sans-serif; font-size:13px; cursor:pointer; }
+        .search-bar select:focus { outline:none; border-color:var(--primary); }
+        .empty-state { text-align:center; padding:40px 20px; color:var(--text); }
+        .empty-state i { font-size:48px; margin-bottom:16px; opacity:0.3; display:block; }
+        .toast-container { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
+        .toast { background:var(--dark3); border:1px solid var(--border2); border-radius:12px; padding:14px 18px; display:flex; align-items:center; gap:12px; min-width:260px; box-shadow:0 10px 30px rgba(0,0,0,0.4); animation:slideIn 0.3s ease; }
+        @keyframes slideIn { from{transform:translateX(100px);opacity:0;}to{transform:translateX(0);opacity:1;} }
+        .toast.success { border-left:3px solid #22c55e; }
+        .toast.error { border-left:3px solid #ef4444; }
+        .toast.info { border-left:3px solid #3b82f6; }
+        .toast-icon { font-size:18px; }
+        .toast.success .toast-icon { color:#22c55e; }
+        .toast.error .toast-icon { color:#ef4444; }
+        .toast.info .toast-icon { color:#3b82f6; }
+        .toast-text { font-size:13px; font-weight:500; color:var(--white); }
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9000; justify-content:center; align-items:center; backdrop-filter:blur(4px); }
+        .modal-overlay.active { display:flex; }
+        .modal { background:var(--dark2); border:1px solid var(--border2); border-radius:20px; padding:28px; width:90%; max-width:460px; animation:fadeUp 0.3s ease; }
+        @keyframes fadeUp { from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;} }
+        .modal h3 { font-family:'Syne',sans-serif; font-size:20px; margin-bottom:10px; }
+        .modal p { color:var(--text); font-size:14px; margin-bottom:16px; line-height:1.6; }
+        .modal label { display:block; font-size:12px; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; margin-top:14px; }
+        .modal input, .modal select, .modal textarea { width:100%; background:var(--dark); border:1px solid var(--border2); border-radius:10px; padding:10px 14px; color:var(--white); font-family:'DM Sans',sans-serif; font-size:13px; }
+        .modal input:focus, .modal select:focus, .modal textarea:focus { outline:none; border-color:var(--primary); }
+        .modal textarea { min-height:80px; resize:vertical; }
+        .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
+        .modal-cancel { padding:9px 20px; background:transparent; border:1px solid var(--border2); border-radius:10px; color:var(--text2); font-weight:600; font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:0.2s; }
+        .modal-cancel:hover { border-color:var(--text); color:var(--white); }
+        .modal-confirm { padding:9px 20px; background:#dc2626; border:none; border-radius:10px; color:white; font-weight:600; font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:0.2s; }
+        .modal-confirm:hover { background:#b91c1c; }
+        .modal-save { padding:9px 20px; background:linear-gradient(135deg,var(--primary),#00a86b); border:none; border-radius:10px; color:#000; font-weight:700; font-size:13px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:0.2s; }
+        @media(max-width:900px) {
+            :root { --sidebar-w:72px; }
+            .sidebar { padding:16px 10px; }
+            .logo-text,.logo-sub,.nav-label { display:none; }
+            .logo { justify-content:center; }
+            .sidebar ul li a span { display:none; }
+            .sidebar ul li a .badge { display:none; }
+            .sidebar ul li a { justify-content:center; padding:12px; }
+            .sidebar ul li a i { width:auto; font-size:18px; }
+            .main { padding:16px; }
+            .topbar-left h1 { font-size:24px; }
+        }
+</style>
+</head>
+<body>
+<div class="toast-container" id="toastContainer"></div>
+<div class="layout">
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon"><i class="fas fa-shield-halved"></i></div>
+            <div><div class="logo-text">MSUKASHA</div><div class="logo-sub">Admin Panel</div></div>
+        </div>
+        <div class="nav-label">Main Menu</div>
+        <ul><li><a href="../dashboard.html"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+<li><a href="approvals.html"><i class="fas fa-user-check"></i><span>Approvals</span><span class="badge">2</span></a></li>
+<li><a href="users.html" class="active"><i class="fas fa-users"></i><span>Users</span></a></li>
+<li><a href="sellers.html"><i class="fas fa-store"></i><span>Sellers</span></a></li>
+<li><a href="products.html"><i class="fas fa-box"></i><span>Products</span></a></li>
+<li><a href="orders.html"><i class="fas fa-cart-shopping"></i><span>Orders</span></a></li></ul>
+        <div class="nav-label">Finance</div>
+        <ul><li><a href="payments.html"><i class="fas fa-wallet"></i><span>Payments</span><span class="badge">19</span></a></li>
+<li><a href="commission.html"><i class="fas fa-percent"></i><span>Commission</span></a></li>
+<li><a href="analytics.html"><i class="fas fa-chart-pie"></i><span>Analytics</span></a></li></ul>
+        <div class="nav-label">System</div>
+        <ul><li><a href="notifications.html"><i class="fas fa-bell"></i><span>Notifications</span><span class="badge">5</span></a></li>
+<li><a href="messages.html"><i class="fas fa-envelope"></i><span>Messages</span></a></li>
+<li><a href="database.html"><i class="fas fa-database"></i><span>Database</span></a></li>
+<li><a href="security.html"><i class="fas fa-shield-halved"></i><span>Security</span></a></li>
+<li><a href="settings.html"><i class="fas fa-gear"></i><span>Settings</span></a></li></ul>
+        <div class="sidebar-footer">
+            <ul><li><a href="../admin.html"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li></ul>
+        </div>
+    </div>
+    <div class="main">
+        <div class="topbar">
+            <div class="topbar-left"><h1>Users</h1><p>All Registered Users</p></div>
+            <div class="topbar-right">
+                <div class="topbar-pill"><span class="dot"></span>Security Active</div>
+                <div class="topbar-avatar">MA</div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="addUserModal">
+            <div class="modal">
+                <h3>New User Add Karen</h3>
+                <label>Full Name</label><input type="text" id="newUserName" placeholder="Name daalen">
+                <label>Email</label><input type="email" id="newUserEmail" placeholder="Email daalen">
+                <label>Role</label>
+                <select id="newUserRole"><option>Buyer</option><option>Seller</option><option>Admin</option></select>
+                <label>City</label><input type="text" id="newUserCity" placeholder="City">
+                <div class="modal-actions">
+                    <button class="modal-cancel" onclick="closeModal('addUserModal')">Cancel</button>
+                    <button class="modal-save" onclick="addUser()">Save User</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-overlay" id="deleteModal">
+            <div class="modal"><h3>Confirm Delete</h3><p>Is user ko permanently delete karna chahte hain?</p>
+            <div class="modal-actions"><button class="modal-cancel" onclick="closeModal('deleteModal')">Cancel</button><button class="modal-confirm" id="modalConfirmBtn">Delete</button></div></div>
+        </div>
+        <div class="panel">
+            <div class="panel-header">
+                <h2>All Users <span id="userCount">5</span></h2>
+                <button class="primary-btn" onclick="document.getElementById('addUserModal').classList.add('active')"><i class="fas fa-user-plus"></i> Add User</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search users..." oninput="filterUsers(this)">
+                <select onchange="filterUsers(this)"><option value="">All Roles</option><option>Buyer</option><option>Seller</option><option>Admin</option></select>
+            </div>
+            <table id="usersTable">
+                <thead><tr><th>#</th><th>User</th><th>Role</th><th>City</th><th>Joined</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody id="usersBody">
+                    <tr><td style="color:var(--primary);font-weight:700;">001</td><td><div class="seller-info"><div class="seller-avatar" style="background:linear-gradient(135deg,#00d084,#00a86b);">A</div><div><div class="seller-name">Ali Hassan</div><div class="seller-sub">ali@email.com</div></div></div></td><td>Buyer</td><td>Karachi</td><td>Jan 2026</td><td><span class="status-badge active">Active</span></td><td><button class="btn edit"><i class="fas fa-pen"></i> Edit</button><button class="btn delete" onclick="delUser(this)"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td style="color:var(--text);font-weight:700;">002</td><td><div class="seller-info"><div class="seller-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">F</div><div><div class="seller-name">Fatima Malik</div><div class="seller-sub">fatima@email.com</div></div></div></td><td>Buyer</td><td>Lahore</td><td>Feb 2026</td><td><span class="status-badge active">Active</span></td><td><button class="btn edit"><i class="fas fa-pen"></i> Edit</button><button class="btn delete" onclick="delUser(this)"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td style="color:var(--text);font-weight:700;">003</td><td><div class="seller-info"><div class="seller-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c);">U</div><div><div class="seller-name">Usman Qureshi</div><div class="seller-sub">usman@email.com</div></div></div></td><td>Seller</td><td>Islamabad</td><td>Mar 2026</td><td><span class="status-badge active">Active</span></td><td><button class="btn edit"><i class="fas fa-pen"></i> Edit</button><button class="btn delete" onclick="delUser(this)"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td style="color:var(--text);font-weight:700;">004</td><td><div class="seller-info"><div class="seller-avatar" style="background:linear-gradient(135deg,#a855f7,#7c3aed);">S</div><div><div class="seller-name">Sara Khan</div><div class="seller-sub">sara@email.com</div></div></div></td><td>Buyer</td><td>Faisalabad</td><td>Apr 2026</td><td><span class="status-badge pending">Pending</span></td><td><button class="btn edit"><i class="fas fa-pen"></i> Edit</button><button class="btn delete" onclick="delUser(this)"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td style="color:var(--text);font-weight:700;">005</td><td><div class="seller-info"><div class="seller-avatar" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">B</div><div><div class="seller-name">Bilal Ahmed</div><div class="seller-sub">bilal@email.com</div></div></div></td><td>Seller</td><td>Multan</td><td>May 2026</td><td><span class="status-badge rejected">Blocked</span></td><td><button class="btn edit"><i class="fas fa-pen"></i> Edit</button><button class="btn delete" onclick="delUser(this)"><i class="fas fa-trash"></i></button></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+
+    function showToast(message, type="info") {
+        const container = document.getElementById("toastContainer");
+        if(!container) return;
+        const icons = {success:"fas fa-circle-check",error:"fas fa-circle-xmark",info:"fas fa-circle-info"};
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `<i class="toast-icon ${icons[type]}"></i><span class="toast-text">${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(()=>{toast.style.transition="0.4s";toast.style.opacity="0";toast.style.transform="translateX(100px)";setTimeout(()=>toast.remove(),400);},3000);
+    }
+    function closeModal(id='deleteModal') { document.getElementById(id).classList.remove("active"); }
+    document.addEventListener("contextmenu",e=>e.preventDefault());
+    document.onkeydown=function(e){if(e.keyCode===123)return false;if(e.ctrlKey&&e.shiftKey&&(e.keyCode===73||e.keyCode===74))return false;if(e.ctrlKey&&e.keyCode===85)return false;};
+
+
+    let delTarget=null;
+    function delUser(btn){delTarget=btn.closest("tr");document.getElementById("deleteModal").classList.add("active");document.getElementById("modalConfirmBtn").onclick=function(){if(delTarget){delTarget.style.transition="0.4s";delTarget.style.opacity="0";setTimeout(()=>{delTarget.remove();updateCount();},400);}closeModal("deleteModal");showToast("User delete ho gaya.","error");};}
+    function updateCount(){document.getElementById("userCount").textContent=document.querySelectorAll("#usersBody tr").length;}
+    function filterUsers(el){const v=el.value.toLowerCase();document.querySelectorAll("#usersBody tr").forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(v)?"":"none";});}
+    function addUser(){
+        const name=document.getElementById("newUserName").value.trim();
+        const email=document.getElementById("newUserEmail").value.trim();
+        const role=document.getElementById("newUserRole").value;
+        const city=document.getElementById("newUserCity").value.trim();
+        if(!name||!email){showToast("Naam aur email zaroori hain!","error");return;}
+        const tbody=document.getElementById("usersBody");
+        const count=tbody.querySelectorAll("tr").length+1;
+        const initial=name[0].toUpperCase();
+        const colors=["#00d084,#00a86b","#3b82f6,#1d4ed8","#f97316,#ea580c","#a855f7,#7c3aed","#eab308,#ca8a04"];
+        const c=colors[count%colors.length];
+        const tr=document.createElement("tr");
+        tr.innerHTML=`<td style="color:var(--text);font-weight:700;">${String(count).padStart(3,"0")}</td><td><div class="seller-info"><div class="seller-avatar" style="background:linear-gradient(135deg,${c});">${initial}</div><div><div class="seller-name">${name}</div><div class="seller-sub">${email}</div></div></div></td><td>${role}</td><td>${city||"-"}</td><td>May 2026</td><td><span class="status-badge active">Active</span></td><td><button class="btn edit"><i class="fas fa-pen"></i> Edit</button><button class="btn delete" onclick="delUser(this)"><i class="fas fa-trash"></i></button></td>`;
+        tbody.appendChild(tr);
+        updateCount();
+        closeModal("addUserModal");
+        showToast(`${name} add ho gaya!`,"success");
+        document.getElementById("newUserName").value="";document.getElementById("newUserEmail").value="";document.getElementById("newUserCity").value="";
+    }
+
+</script>
+</body>
+</html>

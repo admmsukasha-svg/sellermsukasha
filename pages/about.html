@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — MSUKASHA B2B</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{--ink:#0d0d0d;--surface:#f5f2ed;--accent:#c8451a;--accent-dark:#a33614;--accent-dim:rgba(200,69,26,0.08);--accent-glow:rgba(200,69,26,0.18);--muted:#8a8580;--border:#e0dcd6;--input-bg:#faf9f7}
+        body{font-family:'DM Sans',sans-serif;background:var(--surface);min-height:100vh}
+        .navbar{background:var(--ink);padding:18px 48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+        .navbar .logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#fff;text-decoration:none}
+        .navbar .logo span{color:var(--accent)}
+        .navbar a{color:#888;font-size:13px;text-decoration:none;margin-left:24px;transition:color 0.2s}
+        .navbar a:hover{color:var(--accent)}
+        .navbar .btn-cta{background:var(--accent);color:#fff!important;padding:8px 18px;border-radius:8px;font-weight:600}
+        .navbar .btn-cta:hover{background:var(--accent-dark)}
+        .page-hero{background:var(--ink);padding:72px 80px 60px;position:relative;overflow:hidden}
+        .page-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,69,26,0.2) 0%,transparent 70%)}
+        .page-hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+        .page-hero .eyebrow::before{content:'';display:inline-block;width:20px;height:2px;background:var(--accent);border-radius:2px}
+        .page-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,80px);color:#fff;letter-spacing:1px;line-height:0.95}
+        .page-hero h1 em{font-style:normal;color:var(--accent)}
+        .page-hero p{font-size:15px;color:#666;margin-top:16px;max-width:560px;line-height:1.7}
+        .content{max-width:1100px;margin:0 auto;padding:72px 48px 80px}
+        .sec-title{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--ink);letter-spacing:1px;margin-bottom:8px}
+        .sec-sub{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:36px}
+        .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:8px}
+        .card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:28px 26px;transition:0.2s}
+        .card:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(200,69,26,0.08)}
+        .card-icon{width:44px;height:44px;background:var(--accent-dim);border:1px solid var(--accent-glow);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--accent);margin-bottom:16px}
+        .card h3{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ink);letter-spacing:1px;margin-bottom:8px}
+        .card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+        .divider{border:none;border-top:1px solid var(--border);margin:56px 0}
+        .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;margin:36px 0}
+        .stat-box{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:28px 24px;text-align:center}
+        .stat-box .num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--accent);letter-spacing:1px;line-height:1}
+        .stat-box .lbl{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+        .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;margin-top:8px}
+        .team-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:28px 22px;text-align:center;transition:0.2s}
+        .team-card:hover{border-color:var(--accent)}
+        .team-avatar{width:64px;height:64px;background:var(--accent-dim);border:2px solid var(--accent-glow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--accent);margin:0 auto 14px}
+        .team-card h4{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--ink);letter-spacing:1px;margin-bottom:4px}
+        .team-card span{font-size:12px;color:var(--muted)}
+        .footer{background:var(--ink);padding:60px 80px 24px;margin-top:80px}
+        .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+        .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#fff;margin-bottom:14px}
+        .footer-logo span{color:var(--accent)}
+        .footer p{font-size:13px;color:#555;line-height:1.75}
+        .footer h4{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1.5px;color:#fff;margin-bottom:16px}
+        .footer ul{list-style:none}
+        .footer ul li{margin-bottom:10px}
+        .footer ul li a{font-size:13px;color:#555;text-decoration:none;transition:color 0.2s}
+        .footer ul li a:hover{color:var(--accent)}
+        .socials{display:flex;gap:10px;margin-top:18px}
+        .socials a{width:36px;height:36px;background:#1a1a1a;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#555;font-size:14px;text-decoration:none;transition:0.2s}
+        .socials a:hover{background:var(--accent);color:#fff;transform:translateY(-3px)}
+        .footer-bottom{border-top:1px solid #1a1a1a;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+        .footer-bottom p{font-size:12px;color:#3a3a3a}
+        .footer-bottom a{font-size:12px;color:#3a3a3a;text-decoration:none;margin-left:18px;transition:color 0.2s}
+        .footer-bottom a:hover{color:var(--accent)}
+        @media(max-width:768px){.page-hero{padding:44px 24px 36px}.content{padding:40px 20px 60px}.footer{padding:48px 24px 20px}.footer-grid{grid-template-columns:1fr 1fr}.navbar{padding:16px 20px}}
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="../landing.html" class="logo">MSUKASHA <span>B2B</span></a>
+    <div>
+        <a href="../landing.html">Home</a>
+        <a href="add-product.html">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Sign In</a>
+        <a href="register.html" class="btn-cta">Register</a>
+    </div>
+</nav>
+
+<div class="page-hero">
+    <div class="eyebrow">Our Story</div>
+    <h1>ABOUT<br><em>MSUKASHA</em></h1>
+    <p>Pakistan's dedicated B2B wholesale marketplace — built by traders, for traders. We connect verified factories and suppliers with bulk buyers across the globe.</p>
+</div>
+
+<div class="content">
+    <div class="sec-title">Who We Are</div>
+    <div class="sec-sub">MSUKASHA B2B was founded with one mission: to give Pakistani manufacturers and wholesalers a professional digital platform to reach serious bulk buyers — without the noise of retail marketplaces.</div>
+
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+            <h3>Our Mission</h3>
+            <p>To digitize Pakistan's wholesale trade and give every factory owner a world-class platform to grow their B2B business efficiently and securely.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-eye"></i></div>
+            <h3>Our Vision</h3>
+            <p>To become South Asia's most trusted B2B wholesale portal — where every transaction is verified, transparent, and built on long-term relationships.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><i class="fas fa-handshake"></i></div>
+            <h3>Our Values</h3>
+            <p>Trust, transparency, and growth. We believe in empowering Pakistani exporters and manufacturers with the tools they deserve.</p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sec-title">By the Numbers</div>
+    <div class="stats-row">
+        <div class="stat-box"><div class="num">2400+</div><div class="lbl">Active Vendors</div></div>
+        <div class="stat-box"><div class="num">98K</div><div class="lbl">Orders / Month</div></div>
+        <div class="stat-box"><div class="num">34</div><div class="lbl">Countries Reached</div></div>
+        <div class="stat-box"><div class="num">2022</div><div class="lbl">Founded</div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sec-title">Leadership Team</div>
+    <div class="sec-sub">Experienced professionals committed to building Pakistan's wholesale future.</div>
+    <div class="team-grid">
+        <div class="team-card"><div class="team-avatar"><i class="fas fa-user-tie"></i></div><h4>Majid Ali</h4><span>Founder & CEO</span></div>
+        <div class="team-card"><div class="team-avatar"><i class="fas fa-user-tie"></i></div><h4>Sara Khan</h4><span>Head of Operations</span></div>
+        <div class="team-card"><div class="team-avatar"><i class="fas fa-user-tie"></i></div><h4>Usman Raza</h4><span>Chief Technology Officer</span></div>
+        <div class="team-card"><div class="team-avatar"><i class="fas fa-user-tie"></i></div><h4>Fatima Noor</h4><span>Vendor Relations Lead</span></div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-grid">
+        <div><div class="footer-logo">MSUKASHA <span>B2B</span></div><p>Pakistan's professional B2B marketplace connecting trusted buyers and verified sellers worldwide.</p><div class="socials"><a href="https://www.facebook.com/msukasha" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/msukasha" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.linkedin.com/company/msukasha" target="_blank"><i class="fab fa-linkedin-in"></i></a><a href="https://twitter.com/msukasha" target="_blank"><i class="fab fa-x-twitter"></i></a></div></div>
+        <div><h4>Quick Links</h4><ul><li><a href="../landing.html">Home</a></li><li><a href="add-product.html">Products</a></li><li><a href="become-seller.html">Become Seller</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4>Seller Center</h4><ul><li><a href="seller-dashboard.html">Seller Dashboard</a></li><li><a href="start-selling.html">Start Selling</a></li><li><a href="seller-policies.html">Seller Policies</a></li><li><a href="commission-fees.html">Commission & Fees</a></li><li><a href="seller-support.html">Seller Support</a></li></ul></div>
+        <div><h4>Contact Us</h4><ul><li><a href="mailto:supp.msukasha@gmail.com">supp.msukasha@gmail.com</a></li><li><a href="tel:+923313730953">+92 331 3730953</a></li><li><a href="contact.html">Pakistan — 24/7 Support</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 MSUKASHA. All Rights Reserved.</p><div><a href="privacy-policy.html">Privacy Policy</a><a href="terms-conditions.html">Terms & Conditions</a><a href="refund-policy.html">Refund Policy</a></div></div>
+</footer>
+</body>
+</html>
